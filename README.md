@@ -2,25 +2,32 @@
 
 # web-1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**This is a test application.**
 
-Things you may want to cover:
+First: install gem bundler
 
-* Ruby version
+Just run the commands:
 
-* System dependencies
+* bundle install
 
-* Configuration
+* rails db:create
 
-* Database creation
+* rails db:migrate
 
-* Database initialization
+* rails server
 
-* How to run the test suite
+# How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+* run this command: rspec
 
-* Deployment instructions
+# How to create sales from a file
 
-* ...
+* Go to a url in which the server reports (after -> "Listening on tcp://")
+
+* Create an account and log in
+
+* Click in "Choose File" button and select the correct file
+
+* Click in "Create Sale"
+
+* A success message should appear with the Total Gross Income

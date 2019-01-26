@@ -1,10 +1,4 @@
-class SalesController < ApplicationController
-  before_action :set_sale, only: [:show]
-
-  # GET /sales/1
-  # GET /sales/1.json
-  def show
-  end
+class SalesController < SecureController
 
   # GET /sales/new
   def new
@@ -13,28 +7,25 @@ class SalesController < ApplicationController
 
   # POST /sales
   # POST /sales.json
-  def create
-    @sale = Sale.new(sale_params)
-
-    respond_to do |format|
-      if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
-        format.json { render :show, status: :created, location: @sale }
-      else
-        format.html { render :new }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
+  def import_file_table
+    @error = true
+    scanned_data = ReadFile.scan(sale_params[:file_table], Sale.regex_read_file_table)
+    if scanned_data
+      sales_mapped = Sale.map_scanned_attributes scanned_data
+      begin
+        Sale.create(sales_mapped)
+        @total_gross_income = sales_mapped.map{|sale| sale[:item_price].to_f * sale[:purchase_count].to_i}
+                                           .reduce(:+)
+        @error = false
+      rescue
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sale
-      @sale = Sale.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.permit(:table_file)
+      params.require(:sale).permit(:file_table)
     end
 end

@@ -11,4 +11,5 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+//= require sweetalert2
+//= require sweet-alert2-rails

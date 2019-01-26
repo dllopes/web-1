@@ -10,27 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_26_145525) do
-
-  create_table "items", force: :cascade do |t|
-    t.text "description"
-    t.float "price", default: 0.0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "merchants", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "purchasers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2019_01_26_183556) do
 
   create_table "purchases", force: :cascade do |t|
     t.integer "count"
@@ -42,6 +22,17 @@ ActiveRecord::Schema.define(version: 2019_01_26_145525) do
     t.index ["item_id"], name: "index_purchases_on_item_id"
     t.index ["merchant_id"], name: "index_purchases_on_merchant_id"
     t.index ["purchaser_id"], name: "index_purchases_on_purchaser_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.string "purchaser_name"
+    t.string "item_description"
+    t.float "item_price"
+    t.integer "purchase_count"
+    t.string "merchant_address"
+    t.string "merchant_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

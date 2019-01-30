@@ -1,0 +1,18 @@
+.alert {
+
+  &.alert-success {
+    color: #3E753F;
+  }
+
+  &.alert-info {
+    color: #34708E;
+  }
+
+  &.alert-warning {
+    color: #896C3F;
+  }
+
+  &.alert-error {
+    color: #A74544;
+  }
+}

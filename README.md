@@ -22,9 +22,9 @@ Just run the commands:
 
 # How to create sales from a file
 
-* Go to a url in which the server reports (after -> "Listening on tcp://")
+* Go to a url in which the server reports (after -> "Listening on tcp://") (default: http://localhost:3000)
 
-* Create an account and log in
+* Create an account and log in (Facebook will only work with http://localhost:3000)
 
 * Click in "Choose File" button and select the correct file
 

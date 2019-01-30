@@ -23,7 +23,8 @@ class Sale < ApplicationRecord
     /(.+)\t(.+)\t(.+)\t(.+)\t(.+)\t(.+)/
   end
 
-  def self.map_scanned_attributes(scanned)
+  # Use to normalize data for this model after scan with regex_read_file_table
+  def self.map_scanned_data(scanned)
     attribute_names = scanned.shift
     scanned.map do |row|
       mapped_attributes = {}
@@ -32,5 +33,13 @@ class Sale < ApplicationRecord
       end
       mapped_attributes
     end
+  end
+
+  #TODO RSPEC TEST
+  # sales_mapped attribute is the result of map_scanned_data method
+  def self.calc_total_gross_income(sales_mapped)
+    sales_mapped
+        .map{|sale| sale[:item_price].to_f * sale[:purchase_count].to_i}
+        .reduce(:+)
   end
 end

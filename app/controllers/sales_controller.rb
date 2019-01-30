@@ -11,11 +11,10 @@ class SalesController < SecureController
     @error = true
     scanned_data = ReadFile.scan(sale_params[:file_table], Sale.regex_read_file_table)
     if scanned_data
-      sales_mapped = Sale.map_scanned_attributes scanned_data
       begin
+        sales_mapped = Sale.map_scanned_data scanned_data
         Sale.create(sales_mapped)
-        @total_gross_income = sales_mapped.map{|sale| sale[:item_price].to_f * sale[:purchase_count].to_i}
-                                           .reduce(:+)
+        @total_gross_income = Sale.calc_total_gross_income sales_mapped
         @error = false
       rescue
       end

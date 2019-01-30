@@ -1,0 +1,5 @@
+en:
+  sales:
+    import_file_table:
+      scan_error: "Scan Error"
+      total_gross_income: "Total Gross Income"

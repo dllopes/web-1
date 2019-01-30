@@ -1,5 +1,5 @@
 <%if @error %>
-  swal('Scan Error','','error')
+  swal( '<%=t('.scan_error')%>', '', 'error' )
 <%else%>
-  swal('Total Gross Income','<%=number_to_currency @total_gross_income %>','success')
+  swal('<%=t('.total_gross_income')%>','<%=number_to_currency @total_gross_income %>','success')
 <%end%>

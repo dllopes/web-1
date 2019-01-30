@@ -41,30 +41,59 @@ RSpec.describe Sale, type: :model do
 
   end
 
-  describe 'Map scanned data table' do
+  context 'When have a file table and scanned data' do
+    let(:file_table) { (attributes_for :sale)[:file_table] }
+    let(:read_file) { ReadFile.scan(file_table, Sale.regex_read_file_table) }
+    let(:map_scanned_data) { Sale.map_scanned_data(read_file) }
 
-    context 'with valid file table' do
-      let(:file_table) { (attributes_for :sale)[:file_table] }
-      let(:read_file) { ReadFile.scan(file_table, Sale.regex_read_file_table) }
-      let(:map_scanned_attributes) { Sale.map_scanned_attributes(read_file) }
+    before { map_scanned_data }
 
-      before { map_scanned_attributes }
+    describe 'Map scanned data table' do
 
-      it 'items size is equal to 4' do
-        expect(map_scanned_attributes.size).to eq(4)
+      context 'with valid file table' do
+
+        it 'items size is equal to 4' do
+          expect(map_scanned_data.size).to eq(4)
+        end
+
       end
+
+      context 'with invalid file table' do
+        let(:file_table) { file_error }
+
+        it 'saves sale' do
+          expect(map_scanned_data.size).not_to eq(4)
+        end
+      end
+
     end
 
-    context 'with invalid file table' do
-      let(:file_table) { file_error }
-      let(:read_file) { ReadFile.scan(file_table, Sale.regex_read_file_table) }
-      let(:map_scanned_attributes) { Sale.map_scanned_attributes(read_file) }
+    describe 'Calc total gross income' do
 
-      before { map_scanned_attributes }
+      context 'with valid sales_mapped' do
 
-      it 'saves sale' do
-        expect(map_scanned_attributes.size).to eq(2)
+        let(:calc_total_gross_income) { Sale.calc_total_gross_income(map_scanned_data) }
+
+        before { calc_total_gross_income }
+
+        it 'total is equal to 95.0' do
+          expect(calc_total_gross_income).to eq(95.0)
+        end
+
       end
+
+      context 'with invalid sales_mapped' do
+        let(:file_table) { file_error }
+        let(:calc_total_gross_income) { Sale.calc_total_gross_income(map_scanned_data) }
+
+        before { calc_total_gross_income }
+
+        it 'total is equal to 0.0' do
+          expect(calc_total_gross_income).to eq(0)
+        end
+
+      end
+
     end
 
   end

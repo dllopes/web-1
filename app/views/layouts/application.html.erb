@@ -10,6 +10,15 @@
   </head>
 
   <body>
+    <% flash.each do |key, value| %>
+      <div class="<%= flash_class(key.to_sym) %>">
+        <%= value %>
+      </div>
+    <% end %>
+    <%if user_signed_in?%>
+      <%=image_tag current_user.image if current_user.image  %>
+      <%=current_user.email %>
+    <%end%>
     <%= yield %>
   </body>
 </html>

@@ -10,6 +10,10 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider               :string
+#  uid                    :string
+#  name                   :string
+#  image                  :string
 #
 
 FactoryBot.define do

@@ -35,6 +35,7 @@ group :development, :test do
   # RSpec testing framework
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -51,6 +52,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'simplecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -58,3 +60,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Devise is a flexible authentication solution
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
